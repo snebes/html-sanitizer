@@ -3,7 +3,7 @@
 /*
  * This file is part of the HTML sanitizer project.
  *
- * (c) Titouan Galopin <galopintitouan@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,7 @@ namespace HtmlSanitizer\Visitor;
  * Named node visitors are useful to improve the sanitizer performance by being able to resolve
  * visitors quickly for a given DOM node.
  *
- * @author Titouan Galopin <galopintitouan@gmail.com>
+ * @author Steve Nebes <snebes@gmail.com>
  */
 interface NamedNodeVisitorInterface extends NodeVisitorInterface
 {

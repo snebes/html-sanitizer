@@ -1,12 +1,12 @@
 {
-    "name": "tgalopin/html-sanitizer",
+    "name": "snebes/html-sanitizer",
     "description": "Sanitize untrustworthy HTML user input",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name": "Titouan Galopin",
-            "email": "galopintitouan@gmail.com"
+            "name": "Steve Nebes",
+            "email": "snebes@gmail.com"
         }
     ],
     "autoload": {
