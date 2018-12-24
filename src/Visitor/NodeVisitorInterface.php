@@ -3,7 +3,7 @@
 /*
  * This file is part of the HTML sanitizer project.
  *
- * (c) Titouan Galopin <galopintitouan@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -16,7 +16,7 @@ use HtmlSanitizer\Model\Cursor;
 /**
  * A visitor visit supported DOM nodes to decide whether and how to include them in the final output.
  *
- * @author Titouan Galopin <galopintitouan@gmail.com>
+ * @author Steve Nebes <snebes@gmail.com>
  */
 interface NodeVisitorInterface
 {
