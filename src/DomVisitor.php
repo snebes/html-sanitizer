@@ -1,12 +1,9 @@
 <?php
-
-/*
- * This file is part of the HTML sanitizer project.
- *
+/**
  * (c) Steve Nebes <snebes@gmail.com>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
 namespace HtmlSanitizer;
@@ -21,7 +18,7 @@ use HtmlSanitizer\Visitor\NodeVisitorInterface;
  * The DomVisitor iterate over the parsed DOM tree and visit nodes using NodeVisitorInterface objects.
  * For performance reasons, these objects are split in 2 groups: generic ones and node-specific ones.
  */
-class DomVisitor implements DomVisitorInterface
+class DomVisitor
 {
     /**
      * @var NodeVisitorInterface[]

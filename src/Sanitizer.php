@@ -1,24 +1,16 @@
 <?php
-
-/*
- * This file is part of the HTML sanitizer project.
- *
+/**
  * (c) Steve Nebes <snebes@gmail.com>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace HtmlSanitizer;
 
-use HtmlSanitizer\Extension\Basic\BasicExtension;
-use HtmlSanitizer\Extension\Code\CodeExtension;
-use HtmlSanitizer\Extension\Details\DetailsExtension;
-use HtmlSanitizer\Extension\Extra\ExtraExtension;
-use HtmlSanitizer\Extension\Iframe\IframeExtension;
-use HtmlSanitizer\Extension\Image\ImageExtension;
-use HtmlSanitizer\Extension\Listing\ListExtension;
-use HtmlSanitizer\Extension\Table\TableExtension;
+use HtmlSanitizer\Extension\HTML5Extension;
 use HtmlSanitizer\Parser\MastermindsParser;
 use HtmlSanitizer\Parser\ParserInterface;
 use Psr\Log\LoggerInterface;
@@ -28,10 +20,10 @@ use Psr\Log\LoggerInterface;
  *
  * @final
  */
-class Sanitizer implements SanitizerInterface
+class Sanitizer
 {
     /**
-     * @var DomVisitorInterface
+     * @var DomVisitor
      */
     private $domVisitor;
 
@@ -50,7 +42,15 @@ class Sanitizer implements SanitizerInterface
      */
     private $logger;
 
-    public function __construct(DomVisitorInterface $domVisitor, int $maxInputLength, ParserInterface $parser = null, LoggerInterface $logger = null)
+    /**
+     * Default values.
+     *
+     * @param DomVisitor           $domVisitor
+     * @param int                  $maxInputLength
+     * @param ParserInterface|null $parser
+     * @param LoggerInterface|null $logger
+     */
+    public function __construct(DomVisitor $domVisitor, int $maxInputLength, ParserInterface $parser = null, LoggerInterface $logger = null)
     {
         $this->domVisitor = $domVisitor;
         $this->maxInputLength = $maxInputLength;
@@ -63,19 +63,12 @@ class Sanitizer implements SanitizerInterface
      *
      * @param array $config
      *
-     * @return SanitizerInterface
+     * @return Sanitizer
      */
-    public static function create(array $config): SanitizerInterface
+    public static function create(array $config): Sanitizer
     {
         $builder = new SanitizerBuilder();
-        $builder->registerExtension(new BasicExtension());
-        $builder->registerExtension(new ListExtension());
-        $builder->registerExtension(new ImageExtension());
-        $builder->registerExtension(new CodeExtension());
-        $builder->registerExtension(new TableExtension());
-        $builder->registerExtension(new IframeExtension());
-        $builder->registerExtension(new DetailsExtension());
-        $builder->registerExtension(new ExtraExtension());
+        $builder->registerExtension(new HTML5Extension());
 
         return $builder->build($config);
     }
@@ -86,7 +79,7 @@ class Sanitizer implements SanitizerInterface
 
         if ($this->logger) {
             $this->logger->debug('Sanitized given input to "{output}".', [
-                'output' => mb_substr($sanitized, 0, 50).(mb_strlen($sanitized) > 50 ? '...' : ''),
+                'output' => \mb_substr($sanitized, 0, 50) . (\mb_strlen($sanitized) > 50 ? '...' : ''),
             ]);
         }
 
@@ -96,8 +89,8 @@ class Sanitizer implements SanitizerInterface
     private function doSanitize(string $html): string
     {
         // Prevent DOS attack induced by extremely long HTML strings
-        if (mb_strlen($html) > $this->maxInputLength) {
-            $html = mb_substr($html, 0, $this->maxInputLength);
+        if (\mb_strlen($html) > $this->maxInputLength) {
+            $html = \mb_substr($html, 0, $this->maxInputLength);
         }
 
         /*
@@ -109,7 +102,7 @@ class Sanitizer implements SanitizerInterface
         }
 
         // Remove NULL character
-        $html = str_replace(\chr(0), '', $html);
+        $html = \str_replace(\chr(0), '', $html);
 
         try {
             $parsed = $this->parser->parse($html);
@@ -128,6 +121,6 @@ class Sanitizer implements SanitizerInterface
     private function isValidUtf8(string $html): bool
     {
         // preg_match() fails silently on strings containing invalid UTF-8.
-        return '' === $html || 1 === preg_match('/^./us', $html);
+        return '' === $html || 1 === \preg_match('/^./us', $html);
     }
 }

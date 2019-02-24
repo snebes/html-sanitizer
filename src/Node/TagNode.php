@@ -1,61 +1,97 @@
 <?php
-
-/*
- * This file is part of the HTML sanitizer project.
- *
+/**
  * (c) Steve Nebes <snebes@gmail.com>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace HtmlSanitizer\Node;
 
 use HtmlSanitizer\Sanitizer\StringSanitizerTrait;
 
 /**
- * Abstract base class for tags.
- *
- * @author Steve Nebes <snebes@gmail.com>
+ * A Tag Node.
  */
-abstract class AbstractTagNode extends AbstractNode implements TagNodeInterface
+class TagNode extends AbstractNode implements TagNodeInterface
 {
+    use HasChildrenTrait;
     use StringSanitizerTrait;
 
+    /**
+     * @var string
+     */
+    private $qName;
+
+    /**
+     * @var array<string, string>
+     */
     private $attributes = [];
 
     /**
-     * Return this tag name (used to render it).
+     * Default values.
      *
+     * @param NodeInterface $parent
+     * @param string        $qName
+     * @param array         $attributes
+     */
+    public function __construct(NodeInterface $parent, string $qName, array $attributes = [])
+    {
+        parent::__construct($parent);
+
+        $this->qName = $qName;
+        $this->attributes = $attributes;
+    }
+
+    /**
      * @return string
      */
-    abstract public function getTagName(): string;
+    public function getTagName(): string
+    {
+        return $this->qName;
+    }
 
+    /**
+     * @param string $name
+     * @return string|null
+     */
     public function getAttribute(string $name): ?string
     {
         return $this->attributes[$name] ?? null;
     }
 
+    /**
+     * @param string      $name
+     * @param string|null $value
+     */
     public function setAttribute(string $name, ?string $value)
     {
         // Always use only the first declaration (ease sanitization)
-        if (!array_key_exists($name, $this->attributes)) {
+        if (!\array_key_exists($name, $this->attributes)) {
             $this->attributes[$name] = $value;
         }
     }
 
+    /**
+     * @return string
+     */
     public function render(): string
     {
         $tag = $this->getTagName();
 
-        if (method_exists($this, 'renderChildren')) {
-            return '<'.$tag.$this->renderAttributes().'>'.$this->renderChildren().'</'.$tag.'>';
+        if (\method_exists($this, 'renderChildren')) {
+            return '<' . $tag . $this->renderAttributes() . '>' . $this->renderChildren() . '</' . $tag . '>';
         }
 
-        return '<'.$tag.$this->renderAttributes().' />';
+        return '<' . $tag . $this->renderAttributes() . ' />';
     }
 
-    protected function renderAttributes(): string
+    /**
+     * @return string
+     */
+    private function renderAttributes(): string
     {
         $rendered = [];
         foreach ($this->attributes as $name => $value) {
@@ -77,16 +113,16 @@ abstract class AbstractTagNode extends AbstractNode implements TagNodeInterface
                 // IE8's HTML parser treats `` as a blank attribute value and foo=bar becomes a separate attribute.
                 // Adding a space at the end of the attribute prevents this by forcing IE8 to put double
                 // quotes around the attribute when computing nodeB.innerHTML.
-                if (false !== mb_strpos($value, '`')) {
+                if (false !== \mb_strpos($value, '`')) {
                     $value .= ' ';
                 }
 
-                $attr .= '="'.$this->encodeHtmlEntities($value).'"';
+                $attr .= '="' . $this->encodeHtmlEntities($value) . '"';
             }
 
             $rendered[] = $attr;
         }
 
-        return $rendered ? ' '.implode(' ', $rendered) : '';
+        return $rendered ? ' ' . \implode(' ', $rendered) : '';
     }
 }

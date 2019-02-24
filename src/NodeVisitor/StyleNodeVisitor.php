@@ -1,18 +1,17 @@
 <?php
-
-/*
- * This file is part of the HTML sanitizer project.
- *
+/**
  * (c) Steve Nebes <snebes@gmail.com>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Visitor;
+declare(strict_types=1);
+
+namespace HtmlSanitizer\NodeVisitor;
 
 use HtmlSanitizer\Model\Cursor;
-use HtmlSanitizer\Node\StyleNode;
+use HtmlSanitizer\Node\TagNode;
 
 /**
  * @author Steve Nebes <snebes@gmail.com>
@@ -33,7 +32,7 @@ class StyleNodeVisitor extends AbstractNodeVisitor implements NamedNodeVisitorIn
 
     public function enterNode(\DOMNode $domNode, Cursor $cursor)
     {
-        $node = new StyleNode($cursor->node);
+        $node = new TagNode($cursor->node, 'style');
 
         $cursor->node->addChild($node);
         $cursor->node = $node;
