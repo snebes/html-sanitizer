@@ -1,20 +1,19 @@
 <?php
-
-/*
- * This file is part of the HTML sanitizer project.
- *
+/**
  * (c) Steve Nebes <snebes@gmail.com>
  *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace HtmlSanitizer;
 
 use HtmlSanitizer\Extension\ExtensionInterface;
+use HtmlSanitizer\NodeVisitor\ScriptNodeVisitor;
+use HtmlSanitizer\NodeVisitor\StyleNodeVisitor;
 use HtmlSanitizer\Parser\ParserInterface;
-use HtmlSanitizer\Visitor\ScriptNodeVisitor;
-use HtmlSanitizer\Visitor\StyleNodeVisitor;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -22,7 +21,7 @@ use Psr\Log\LoggerInterface;
  *
  * @final
  */
-class SanitizerBuilder implements SanitizerBuilderInterface
+class SanitizerBuilder
 {
     /**
      * @var ExtensionInterface[]
@@ -39,22 +38,35 @@ class SanitizerBuilder implements SanitizerBuilderInterface
      */
     private $logger;
 
+    /**
+     * @param ExtensionInterface $extension
+     */
     public function registerExtension(ExtensionInterface $extension)
     {
         $this->extensions[$extension->getName()] = $extension;
     }
 
+    /**
+     * @param ParserInterface|null $parser
+     */
     public function setParser(?ParserInterface $parser)
     {
         $this->parser = $parser;
     }
 
+    /**
+     * @param LoggerInterface|null $logger
+     */
     public function setLogger(?LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
 
-    public function build(array $config): SanitizerInterface
+    /**
+     * @param array $config
+     * @return Sanitizer
+     */
+    public function build(array $config): Sanitizer
     {
         $nodeVisitors = [];
 
@@ -63,7 +75,7 @@ class SanitizerBuilder implements SanitizerBuilderInterface
                 throw new \InvalidArgumentException(sprintf(
                     'You have requested a non-existent sanitizer extension "%s" (available extensions: %s)',
                     $extensionName,
-                    implode(', ', array_keys($this->extensions))
+                    \implode(', ', \array_keys($this->extensions))
                 ));
             }
 
@@ -71,10 +83,6 @@ class SanitizerBuilder implements SanitizerBuilderInterface
                 $nodeVisitors[$tagName] = $visitor;
             }
         }
-
-        // Always required visitors
-        $nodeVisitors['script'] = new ScriptNodeVisitor();
-        $nodeVisitors['style'] = new StyleNodeVisitor();
 
         return new Sanitizer(new DomVisitor($nodeVisitors), $config['max_input_length'] ?? 20000, $this->parser, $this->logger);
     }

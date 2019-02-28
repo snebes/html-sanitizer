@@ -1,6 +1,6 @@
 {
     "name": "snebes/html-sanitizer",
-    "description": "Sanitize untrustworthy HTML user input",
+    "description": "Sanitize HTML5 strings",
     "type": "library",
     "license": "MIT",
     "authors": [
