@@ -73,6 +73,10 @@ class Sanitizer
         return $builder->build($config);
     }
 
+    /**
+     * @param string $html
+     * @return string
+     */
     public function sanitize(string $html): string
     {
         $sanitized = $this->doSanitize($html);
@@ -86,6 +90,10 @@ class Sanitizer
         return $sanitized;
     }
 
+    /**
+     * @param string $html
+     * @return string
+     */
     private function doSanitize(string $html): string
     {
         // Prevent DOS attack induced by extremely long HTML strings
@@ -115,7 +123,6 @@ class Sanitizer
 
     /**
      * @param string $html
-     *
      * @return bool
      */
     private function isValidUtf8(string $html): bool

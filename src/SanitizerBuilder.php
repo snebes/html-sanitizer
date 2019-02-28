@@ -38,21 +38,34 @@ class SanitizerBuilder
      */
     private $logger;
 
+    /**
+     * @param ExtensionInterface $extension
+     */
     public function registerExtension(ExtensionInterface $extension)
     {
         $this->extensions[$extension->getName()] = $extension;
     }
 
+    /**
+     * @param ParserInterface|null $parser
+     */
     public function setParser(?ParserInterface $parser)
     {
         $this->parser = $parser;
     }
 
+    /**
+     * @param LoggerInterface|null $logger
+     */
     public function setLogger(?LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
 
+    /**
+     * @param array $config
+     * @return Sanitizer
+     */
     public function build(array $config): Sanitizer
     {
         $nodeVisitors = [];
@@ -70,10 +83,6 @@ class SanitizerBuilder
                 $nodeVisitors[$tagName] = $visitor;
             }
         }
-
-        // Always required visitors
-        $nodeVisitors['script'] = new ScriptNodeVisitor();
-        $nodeVisitors['style'] = new StyleNodeVisitor();
 
         return new Sanitizer(new DomVisitor($nodeVisitors), $config['max_input_length'] ?? 20000, $this->parser, $this->logger);
     }

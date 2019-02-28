@@ -11,8 +11,7 @@ namespace HtmlSanitizer;
 use HtmlSanitizer\Model\Cursor;
 use HtmlSanitizer\Node\DocumentNode;
 use HtmlSanitizer\Node\TextNode;
-use HtmlSanitizer\Visitor\NamedNodeVisitorInterface;
-use HtmlSanitizer\Visitor\NodeVisitorInterface;
+use HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
 
 /**
  * The DomVisitor iterate over the parsed DOM tree and visit nodes using NodeVisitorInterface objects.
@@ -23,12 +22,7 @@ class DomVisitor
     /**
      * @var NodeVisitorInterface[]
      */
-    private $genericNodeVisitors = [];
-
-    /**
-     * @var NamedNodeVisitorInterface[]
-     */
-    private $namedNodeVisitors = [];
+    private $nodeVisitors = [];
 
     /**
      * @param NodeVisitorInterface[] $visitors
@@ -36,18 +30,18 @@ class DomVisitor
     public function __construct(array $visitors = [])
     {
         foreach ($visitors as $visitor) {
-            if ($visitor instanceof NamedNodeVisitorInterface) {
+            if ($visitor instanceof NodeVisitorInterface) {
                 foreach ($visitor->getSupportedNodeNames() as $nodeName) {
-                    $this->namedNodeVisitors[$nodeName][] = $visitor;
+                    $this->nodeVisitors[$nodeName][] = $visitor;
                 }
-
-                continue;
             }
-
-            $this->genericNodeVisitors[] = $visitor;
         }
     }
 
+    /**
+     * @param \DOMNode $node
+     * @return DocumentNode
+     */
     public function visit(\DOMNode $node): DocumentNode
     {
         $cursor = new Cursor();
@@ -58,10 +52,14 @@ class DomVisitor
         return $cursor->node;
     }
 
+    /**
+     * @param \DOMNode $node
+     * @param Cursor   $cursor
+     */
     private function visitNode(\DOMNode $node, Cursor $cursor)
     {
         /** @var NodeVisitorInterface[] $supportedVisitors */
-        $supportedVisitors = array_merge($this->namedNodeVisitors[$node->nodeName] ?? [], $this->genericNodeVisitors);
+        $supportedVisitors = $this->nodeVisitors[$node->nodeName] ?? [];
 
         foreach ($supportedVisitors as $visitor) {
             if ($visitor->supports($node, $cursor)) {
@@ -70,7 +68,7 @@ class DomVisitor
         }
 
         /** @var \DOMNode $child */
-        foreach ($node->childNodes ?? [] as $k => $child) {
+        foreach ($node->childNodes ?? [] as $child) {
             if ('#text' === $child->nodeName) {
                 // Add text in the safe tree without a visitor for performance
                 $cursor->node->addChild(new TextNode($cursor->node, $child->nodeValue));
@@ -80,7 +78,7 @@ class DomVisitor
             }
         }
 
-        foreach (array_reverse($supportedVisitors) as $visitor) {
+        foreach (\array_reverse($supportedVisitors) as $visitor) {
             if ($visitor->supports($node, $cursor)) {
                 $visitor->leaveNode($node, $cursor);
             }
