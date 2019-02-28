@@ -6,7 +6,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\UrlParser;
+namespace SN\HtmlSanitizer\UrlParser;
 
 use function League\Uri\parse;
 use League\Uri\Exception;

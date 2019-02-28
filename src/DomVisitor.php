@@ -6,12 +6,12 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer;
+namespace SN\HtmlSanitizer;
 
-use HtmlSanitizer\Model\Cursor;
-use HtmlSanitizer\Node\DocumentNode;
-use HtmlSanitizer\Node\TextNode;
-use HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
+use SN\HtmlSanitizer\Model\Cursor;
+use SN\HtmlSanitizer\Node\DocumentNode;
+use SN\HtmlSanitizer\Node\TextNode;
+use SN\HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
 
 /**
  * The DomVisitor iterate over the parsed DOM tree and visit nodes using NodeVisitorInterface objects.

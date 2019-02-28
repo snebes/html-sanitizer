@@ -6,9 +6,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\NodeVisitor;
+namespace SN\HtmlSanitizer\NodeVisitor;
 
-use HtmlSanitizer\Model\Cursor;
+use SN\HtmlSanitizer\Model\Cursor;
 
 /**
  * A visitor visit supported DOM nodes to decide whether and how to include them in the final output.

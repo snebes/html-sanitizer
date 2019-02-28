@@ -6,7 +6,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Sanitizer;
+namespace SN\HtmlSanitizer\Sanitizer;
 
 /**
  * @internal

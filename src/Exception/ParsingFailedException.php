@@ -6,9 +6,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Exception;
+namespace SN\HtmlSanitizer\Exception;
 
-use HtmlSanitizer\Parser\ParserInterface;
+use SN\HtmlSanitizer\Parser\ParserInterface;
 
 /**
  * @author Steve Nebes <snebes@gmail.com>

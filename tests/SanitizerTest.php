@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\HtmlSanitizer;
+namespace Tests\SN\HtmlSanitizer;
 
-use HtmlSanitizer\Sanitizer;
+use SN\HtmlSanitizer\Sanitizer;
 use PHPUnit\Framework\TestCase;
 
 class SanitizerTest extends TestCase

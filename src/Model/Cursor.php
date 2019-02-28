@@ -6,9 +6,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Model;
+namespace SN\HtmlSanitizer\Model;
 
-use HtmlSanitizer\Node\NodeInterface;
+use SN\HtmlSanitizer\Node\NodeInterface;
 
 /**
  * @author Steve Nebes <snebes@gmail.com>

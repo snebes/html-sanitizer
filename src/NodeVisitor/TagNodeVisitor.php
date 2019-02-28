@@ -8,11 +8,11 @@
 
 declare(strict_types=1);
 
-namespace HtmlSanitizer\NodeVisitor;
+namespace SN\HtmlSanitizer\NodeVisitor;
 
-use HtmlSanitizer\Model\Cursor;
-use HtmlSanitizer\Node\TagNode;
-use HtmlSanitizer\Node\TagNodeInterface;
+use SN\HtmlSanitizer\Model\Cursor;
+use SN\HtmlSanitizer\Node\TagNode;
+use SN\HtmlSanitizer\Node\TagNodeInterface;
 
 class TagNodeVisitor implements NodeVisitorInterface
 {

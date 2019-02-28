@@ -8,10 +8,10 @@
 
 declare(strict_types=1);
 
-namespace HtmlSanitizer\Extension;
+namespace SN\HtmlSanitizer\Extension;
 
-use HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
-use HtmlSanitizer\NodeVisitor\TagNodeVisitor;
+use SN\HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
+use SN\HtmlSanitizer\NodeVisitor\TagNodeVisitor;
 
 //'allowed_attributes'   => null,
 //                    'allowed_classes'      => null,

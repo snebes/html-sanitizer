@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace HtmlSanitizer\Node;
+namespace SN\HtmlSanitizer\Node;
 
-use HtmlSanitizer\Sanitizer\StringSanitizerTrait;
+use SN\HtmlSanitizer\Sanitizer\StringSanitizerTrait;
 
 /**
  * A Tag Node.

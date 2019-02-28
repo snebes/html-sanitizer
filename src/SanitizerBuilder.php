@@ -8,12 +8,10 @@
 
 declare(strict_types=1);
 
-namespace HtmlSanitizer;
+namespace SN\HtmlSanitizer;
 
-use HtmlSanitizer\Extension\ExtensionInterface;
-use HtmlSanitizer\NodeVisitor\ScriptNodeVisitor;
-use HtmlSanitizer\NodeVisitor\StyleNodeVisitor;
-use HtmlSanitizer\Parser\ParserInterface;
+use SN\HtmlSanitizer\Extension\ExtensionInterface;
+use SN\HtmlSanitizer\Parser\ParserInterface;
 use Psr\Log\LoggerInterface;
 
 /**
