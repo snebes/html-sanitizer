@@ -30,19 +30,23 @@ class TagNode extends AbstractNode implements TagNodeInterface
      */
     private $attributes = [];
 
+    private $isChildless = false;
+
     /**
      * Default values.
      *
      * @param NodeInterface $parent
      * @param string        $qName
      * @param array         $attributes
+     * @param bool          $isChildless
      */
-    public function __construct(NodeInterface $parent, string $qName, array $attributes = [])
+    public function __construct(NodeInterface $parent, string $qName, array $attributes = [], bool $isChildless = false)
     {
         parent::__construct($parent);
 
         $this->qName = $qName;
         $this->attributes = $attributes;
+        $this->isChildless = $isChildless;
     }
 
     /**

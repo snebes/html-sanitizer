@@ -78,7 +78,9 @@ class TagNodeVisitor implements NodeVisitorInterface
      */
     public function createNode(\DOMNode $domNode, Cursor $cursor): TagNodeInterface
     {
-        $node = new TagNode($cursor->node, $this->qName);
+        $childless = $this->config['childless'] ?? false;
+
+        $node = new TagNode($cursor->node, $this->qName, [], $childless);
         $this->setAttributes($domNode, $node);
 
         return $node;
