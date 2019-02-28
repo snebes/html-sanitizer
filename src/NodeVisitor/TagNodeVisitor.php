@@ -74,10 +74,21 @@ class TagNodeVisitor implements NodeVisitorInterface
     /**
      * @param \DOMNode $domNode
      * @param Cursor   $cursor
+     * @return TagNodeInterface
+     */
+    public function createNode(\DOMNode $domNode, Cursor $cursor): TagNodeInterface
+    {
+        return new TagNode($cursor->node, $this->qName);
+    }
+
+    /**
+     * @param \DOMNode $domNode
+     * @param Cursor   $cursor
      */
     public function enterNode(\DOMNode $domNode, Cursor $cursor)
     {
-        $node = new TagNode($cursor->node, $this->qName);
+
+        $node = $this->createNode($domNode, $cursor);
         $this->setAttributes($domNode, $node);
 
         $cursor->node->addChild($node);
