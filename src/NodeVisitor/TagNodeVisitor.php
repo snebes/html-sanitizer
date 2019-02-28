@@ -68,7 +68,7 @@ class TagNodeVisitor implements NodeVisitorInterface
      */
     public function supports(\DOMNode $domNode, Cursor $cursor): bool
     {
-        return $this->getDomNodeName() === $domNode->nodeName;
+        return \in_array($domNode->nodeName, $this->getSupportedNodeNames(), true);
     }
 
     /**
