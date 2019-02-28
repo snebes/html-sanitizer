@@ -13,6 +13,7 @@ namespace SN\HtmlSanitizer\Sanitizer;
  */
 trait StringSanitizerTrait
 {
+    /** @var array<string, string> */
     private static $replacements = [
         // "&#34;" is shorter than "&quot;"
         '&quot;' => '&#34;',
@@ -33,10 +34,14 @@ trait StringSanitizerTrait
         '｀' => '&#xFF40;',
     ];
 
+    /**
+     * @param string $string
+     * @return string
+     */
     public function encodeHtmlEntities(string $string): string
     {
-        $string = htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-        $string = str_replace(array_keys(self::$replacements), array_values(self::$replacements), $string);
+        $string = \htmlspecialchars($string, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $string = \str_replace(\array_keys(self::$replacements), \array_values(self::$replacements), $string);
 
         return $string;
     }

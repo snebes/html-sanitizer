@@ -12,39 +12,17 @@ namespace SN\HtmlSanitizer\NodeVisitor;
 
 use SN\HtmlSanitizer\Model\Cursor;
 
-class IgnoredNodeVisitor implements NodeVisitorInterface
+class RemoveNodeVisitor extends TagNodeVisitor
 {
-    /**
-     * @var string
-     */
-    protected $qName;
-
-    /**
-     * Default values.
-     *
-     * @param string $qName
-     */
-    public function __construct(string $qName)
-    {
-        $this->qName = $qName;
-    }
-
-    /**
-     * @param \DOMNode $domNode
-     * @param Cursor   $cursor
-     * @return bool
-     */
-    public function supports(\DOMNode $domNode, Cursor $cursor): bool
-    {
-        return $domNode->nodeName === $this->qName;
-    }
-
     /**
      * @param \DOMNode $domNode
      * @param Cursor   $cursor
      */
     public function enterNode(\DOMNode $domNode, Cursor $cursor)
     {
+        while ($domNode->hasChildNodes()) {
+            $domNode->removeChild($domNode->childNodes[0]);
+        }
     }
 
     /**
