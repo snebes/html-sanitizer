@@ -19,12 +19,12 @@ class TagNodeVisitor implements NodeVisitorInterface
     /**
      * @var string
      */
-    private $qName;
+    protected $qName;
 
     /**
      * @var array
      */
-    private $config;
+    protected $config;
 
     /**
      * Default values.
@@ -78,7 +78,10 @@ class TagNodeVisitor implements NodeVisitorInterface
      */
     public function createNode(\DOMNode $domNode, Cursor $cursor): TagNodeInterface
     {
-        return new TagNode($cursor->node, $this->qName);
+        $node = new TagNode($cursor->node, $this->qName);
+        $this->setAttributes($domNode, $node);
+
+        return $node;
     }
 
     /**
@@ -87,10 +90,7 @@ class TagNodeVisitor implements NodeVisitorInterface
      */
     public function enterNode(\DOMNode $domNode, Cursor $cursor)
     {
-
         $node = $this->createNode($domNode, $cursor);
-        $this->setAttributes($domNode, $node);
-
         $cursor->node->addChild($node);
 
         $childless = $this->config['childless'] ?? false;
@@ -143,7 +143,7 @@ class TagNodeVisitor implements NodeVisitorInterface
      * @param \DOMNode      $domNode
      * @param TagNodeInterface $node
      */
-    private function setAttributes(\DOMNode $domNode, TagNodeInterface $node): void
+    protected function setAttributes(\DOMNode $domNode, TagNodeInterface $node): void
     {
         // No attributes to worry about.
         if (!\count($domNode->attributes)) {
