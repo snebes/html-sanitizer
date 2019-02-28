@@ -8,11 +8,11 @@
 
 declare(strict_types=1);
 
-namespace HtmlSanitizer;
+namespace SN\HtmlSanitizer;
 
-use HtmlSanitizer\Extension\HTML5Extension;
-use HtmlSanitizer\Parser\MastermindsParser;
-use HtmlSanitizer\Parser\ParserInterface;
+use SN\HtmlSanitizer\Extension\HTML5Extension;
+use SN\HtmlSanitizer\Parser\MastermindsParser;
+use SN\HtmlSanitizer\Parser\ParserInterface;
 use Psr\Log\LoggerInterface;
 
 /**

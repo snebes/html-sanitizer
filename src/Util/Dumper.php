@@ -6,7 +6,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Util;
+namespace SN\HtmlSanitizer\Util;
 
 /**
  * @author Steve Nebes <snebes@gmail.com>

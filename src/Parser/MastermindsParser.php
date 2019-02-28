@@ -8,9 +8,9 @@
 
 declare(strict_types=1);
 
-namespace HtmlSanitizer\Parser;
+namespace SN\HtmlSanitizer\Parser;
 
-use HtmlSanitizer\Exception\ParsingFailedException;
+use SN\HtmlSanitizer\Exception\ParsingFailedException;
 use Masterminds\HTML5;
 
 /**

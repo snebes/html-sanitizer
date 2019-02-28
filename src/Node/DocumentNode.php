@@ -6,7 +6,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Node;
+namespace SN\HtmlSanitizer\Node;
 
 /**
  * Root node of the sanitized HTML. Contains all the other nodes.

@@ -6,9 +6,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Node;
+namespace SN\HtmlSanitizer\Node;
 
-use HtmlSanitizer\Sanitizer\StringSanitizerTrait;
+use SN\HtmlSanitizer\Sanitizer\StringSanitizerTrait;
 
 /**
  * @author Steve Nebes <snebes@gmail.com>

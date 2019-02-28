@@ -11,12 +11,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "HtmlSanitizer\\": "src"
+            "SN\\HtmlSanitizer\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\HtmlSanitizer\\": "tests"
+            "Tests\\SN\\HtmlSanitizer\\": "tests"
         }
     },
     "require": {

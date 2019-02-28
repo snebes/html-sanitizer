@@ -6,7 +6,7 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Node;
+namespace SN\HtmlSanitizer\Node;
 
 /**
  * Represents a node of the sanitized tree.

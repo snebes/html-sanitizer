@@ -6,9 +6,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Sanitizer;
+namespace SN\HtmlSanitizer\Sanitizer;
 
-use HtmlSanitizer\UrlParser\UrlParser;
+use SN\HtmlSanitizer\UrlParser\UrlParser;
 use function League\Uri\build;
 
 /**

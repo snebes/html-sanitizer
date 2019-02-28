@@ -6,9 +6,9 @@
  *  file that was distributed with this source code.
  */
 
-namespace HtmlSanitizer\Extension;
+namespace SN\HtmlSanitizer\Extension;
 
-use HtmlSanitizer\Visitor\NodeVisitorInterface;
+use SN\HtmlSanitizer\Visitor\NodeVisitorInterface;
 
 /**
  * A sanitizer extension allows to easily add features to the sanitizer to handle specific tags.
