@@ -8,7 +8,7 @@
 
 namespace SN\HtmlSanitizer\Extension;
 
-use SN\HtmlSanitizer\Visitor\NodeVisitorInterface;
+use SN\HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
 
 /**
  * A sanitizer extension allows to easily add features to the sanitizer to handle specific tags.

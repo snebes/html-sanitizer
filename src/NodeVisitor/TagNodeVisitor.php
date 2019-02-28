@@ -110,7 +110,7 @@ class TagNodeVisitor implements NodeVisitorInterface
      *
      * @return null|string
      */
-    private function getAttribute(\DOMNode $domNode, string $name): ?string
+    protected function getAttribute(\DOMNode $domNode, string $name): ?string
     {
         if (!\count($domNode->attributes)) {
             return null;
