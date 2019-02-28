@@ -85,11 +85,11 @@ class TagNode extends AbstractNode implements TagNodeInterface
     {
         $tag = $this->getTagName();
 
-        if (\method_exists($this, 'renderChildren')) {
-            return '<' . $tag . $this->renderAttributes() . '>' . $this->renderChildren() . '</' . $tag . '>';
+        if ($this->isChildless) {
+            return '<' . $tag . $this->renderAttributes() . ' />';
         }
 
-        return '<' . $tag . $this->renderAttributes() . ' />';
+        return '<' . $tag . $this->renderAttributes() . '>' . $this->renderChildren() . '</' . $tag . '>';
     }
 
     /**
