@@ -13,13 +13,12 @@ namespace SN\HtmlSanitizer\Extension;
 use SN\HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
 use SN\HtmlSanitizer\NodeVisitor\TagNodeVisitor;
 
-//'allowed_attributes'   => null,
-//                    'allowed_classes'      => null,
-//                    'forbidden_attributes' => null,
-//                    'forbidden_classes'    => null,
-//                    'childless'            => false,
-//                    'convert_elements'     => null,
-//                ]),
+// 'allowed_attributes'   => null,
+// 'allowed_classes'      => null,
+// 'forbidden_attributes' => null,
+// 'forbidden_classes'    => null,
+// 'childless'            => false,
+// 'convert_elements'     => null,
 
 /**
  * HTML5 Extension
