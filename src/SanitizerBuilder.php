@@ -82,6 +82,6 @@ class SanitizerBuilder
             }
         }
 
-        return new Sanitizer(new DomVisitor($nodeVisitors), $config['max_input_length'] ?? 20000, $this->parser, $this->logger);
+        return new Sanitizer(new DomVisitor($nodeVisitors), $config['max_input_length'] ?? 4294967295, $this->parser, $this->logger);
     }
 }
