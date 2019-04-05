@@ -26,10 +26,13 @@ class TagNode extends AbstractNode implements TagNodeInterface
     private $qName;
 
     /**
-     * @var array<string, string>
+     * @var array<string, string|null>
      */
     private $attributes = [];
 
+    /**
+     * @var bool
+     */
     private $isChildless = false;
 
     /**

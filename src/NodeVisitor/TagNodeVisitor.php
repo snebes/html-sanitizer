@@ -10,10 +10,16 @@ declare(strict_types=1);
 
 namespace SN\HtmlSanitizer\NodeVisitor;
 
+use DOMNode;
 use SN\HtmlSanitizer\Model\Cursor;
 use SN\HtmlSanitizer\Node\TagNode;
 use SN\HtmlSanitizer\Node\TagNodeInterface;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * @final
+ */
 class TagNodeVisitor implements NodeVisitorInterface
 {
     /**
@@ -30,12 +36,12 @@ class TagNodeVisitor implements NodeVisitorInterface
      * Default values.
      *
      * @param string $qName
-     * @param array  $config
+     * @param array  $options
      */
-    public function __construct(string $qName, array $config = [])
+    public function __construct(string $qName, array $options = [])
     {
         $this->qName = $qName;
-        $this->config = $config;
+        $this->config = $this->configureOptions($options);
     }
 
     /**
@@ -62,21 +68,21 @@ class TagNodeVisitor implements NodeVisitorInterface
     }
 
     /**
-     * @param \DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param DOMNode $domNode
+     * @param Cursor  $cursor
      * @return bool
      */
-    public function supports(\DOMNode $domNode, Cursor $cursor): bool
+    public function supports(DOMNode $domNode, Cursor $cursor): bool
     {
         return \in_array($domNode->nodeName, $this->getSupportedNodeNames(), true);
     }
 
     /**
-     * @param \DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param DOMNode $domNode
+     * @param Cursor  $cursor
      * @return TagNodeInterface
      */
-    public function createNode(\DOMNode $domNode, Cursor $cursor): TagNodeInterface
+    public function createNode(DOMNode $domNode, Cursor $cursor): TagNodeInterface
     {
         $childless = $this->config['childless'] ?? false;
 
@@ -87,10 +93,10 @@ class TagNodeVisitor implements NodeVisitorInterface
     }
 
     /**
-     * @param \DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param DOMNode $domNode
+     * @param Cursor  $cursor
      */
-    public function enterNode(\DOMNode $domNode, Cursor $cursor)
+    public function enterNode(DOMNode $domNode, Cursor $cursor)
     {
         $node = $this->createNode($domNode, $cursor);
         $cursor->node->addChild($node);
@@ -103,10 +109,10 @@ class TagNodeVisitor implements NodeVisitorInterface
     }
 
     /**
-     * @param \DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param DOMNode $domNode
+     * @param Cursor  $cursor
      */
-    public function leaveNode(\DOMNode $domNode, Cursor $cursor)
+    public function leaveNode(DOMNode $domNode, Cursor $cursor)
     {
         $childless = $this->config['childless'] ?? false;
 
@@ -116,36 +122,12 @@ class TagNodeVisitor implements NodeVisitorInterface
     }
 
     /**
-     * Read the value of a DOMNode attribute.
-     *
-     * @param \DOMNode $domNode
-     * @param string   $name
-     *
-     * @return null|string
-     */
-    protected function getAttribute(\DOMNode $domNode, string $name): ?string
-    {
-        if (!\count($domNode->attributes)) {
-            return null;
-        }
-
-        /** @var \DOMAttr $attribute */
-        foreach ($domNode->attributes as $attribute) {
-            if ($attribute->name === $name) {
-                return $attribute->value;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Set attributes from a DOM node to a sanitized node.
      *
-     * @param \DOMNode      $domNode
+     * @param DOMNode          $domNode
      * @param TagNodeInterface $node
      */
-    protected function setAttributes(\DOMNode $domNode, TagNodeInterface $node): void
+    protected function setAttributes(DOMNode $domNode, TagNodeInterface $node): void
     {
         // No attributes to worry about.
         if (!\count($domNode->attributes)) {
@@ -153,17 +135,10 @@ class TagNodeVisitor implements NodeVisitorInterface
         }
 
         // No attributes allowed (empty array).
-        $allowedAttributes = $this->config['allowed_attributes'] ?? null;
+        $allowed = $this->config['allowed_attributes'];
 
-        if (\is_array($allowedAttributes) && 0 === \count($allowedAttributes)) {
+        if (\is_array($allowed) && 0 === \count($allowed)) {
             return;
-        }
-
-        // Make forbidden attributes an array.
-        $forbiddenAttributes = $this->config['forbidden_attributes'] ?? [];
-
-        if (!\is_array($forbiddenAttributes)) {
-            $forbiddenAttributes = [];
         }
 
         /** @var \DOMAttr $attribute */
@@ -171,9 +146,8 @@ class TagNodeVisitor implements NodeVisitorInterface
             $name = \mb_strtolower($attribute->name);
 
             if (
-                null === $allowedAttributes ||
-                \in_array($name, $allowedAttributes, true) &&
-                !\in_array($name, $forbiddenAttributes, true)
+                (null === $allowed || \in_array($name, $allowed, true)) &&
+                !\in_array($name, $this->config['blocked_attributes'], true)
             ) {
                 if ($name !== 'class') {
                     $node->setAttribute($name, $attribute->value);
@@ -198,34 +172,65 @@ class TagNodeVisitor implements NodeVisitorInterface
             return '';
         }
 
-        // No attributes allowed (empty array).
-        $allowedClasses = $this->config['allowed_classes'] ?? null;
+        // No class allowed (empty array).
+        $allowed = $this->config['allowed_classes'];
 
-        if (\is_array($allowedClasses) && 0 === \count($allowedClasses)) {
+        if (\is_array($allowed) && 0 === \count($allowed)) {
             return '';
-        }
-
-        // Make forbidden attributes an array.
-        $forbiddenClasses = $this->config['forbidden_classes'] ?? [];
-
-        if (!\is_array($forbiddenClasses)) {
-            $forbiddenClasses = [];
         }
 
         // Check them.
         $valid = [];
-        $classes = \preg_split('/[\s]+/', $value);
+        $classes = \preg_split('/[\s]+/', $value) ?: [];
 
         foreach ($classes as $class) {
             if (
-                null === $allowedClasses ||
-                \in_array($class, $allowedClasses, true) &&
-                !\in_array($class, $forbiddenClasses, true)
+                (null === $allowed || \in_array($class, $allowed, true)) &&
+                !\in_array($class, $this->config['blocked_classes'], true)
             ) {
                 $valid[] = $class;
             }
         }
 
         return \implode(' ', $valid);
+    }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    private function configureOptions(array $options): array
+    {
+        $resolver = new OptionsResolver();
+        $resolver->setDefaults([
+            'allowed_attributes' => null,
+            'allowed_classes'    => null,
+            'blocked_attributes' => [],
+            'blocked_classes'    => [],
+            'childless'          => false,
+            'convert_elements'   => [],
+        ]);
+        $resolver->setAllowedTypes('allowed_attributes', ['null', 'array', 'string']);
+        $resolver->setAllowedTypes('allowed_classes', ['null', 'array', 'string']);
+        $resolver->setAllowedTypes('blocked_attributes', ['array', 'string']);
+        $resolver->setAllowedTypes('blocked_classes', ['array', 'string']);
+        $resolver->setAllowedTypes('childless', ['bool']);
+        $resolver->setAllowedTypes('convert_elements', ['array', 'string']);
+
+        $stringToArrayNormalizer = function (Options $options, $value) {
+            if (\is_string($value)) {
+                $value = \preg_split('/[\s]+/', $value, \PREG_SPLIT_NO_EMPTY) ?: [];
+            }
+
+            return $value;
+        };
+
+        $resolver->setNormalizer('allowed_attributes', $stringToArrayNormalizer);
+        $resolver->setNormalizer('allowed_classes', $stringToArrayNormalizer);
+        $resolver->setNormalizer('blocked_attributes', $stringToArrayNormalizer);
+        $resolver->setNormalizer('blocked_classes', $stringToArrayNormalizer);
+        $resolver->setNormalizer('convert_elements', $stringToArrayNormalizer);
+
+        return $resolver->resolve($options);
     }
 }

@@ -10,15 +10,16 @@ declare(strict_types=1);
 
 namespace SN\HtmlSanitizer\NodeVisitor;
 
+use DOMNode;
 use SN\HtmlSanitizer\Model\Cursor;
 
 class RemoveNodeVisitor extends TagNodeVisitor
 {
     /**
-     * @param \DOMNode $domNode
+     * @param DOMNode $domNode
      * @param Cursor   $cursor
      */
-    public function enterNode(\DOMNode $domNode, Cursor $cursor)
+    public function enterNode(DOMNode $domNode, Cursor $cursor)
     {
         while ($domNode->hasChildNodes()) {
             $domNode->removeChild($domNode->childNodes[0]);
@@ -26,10 +27,10 @@ class RemoveNodeVisitor extends TagNodeVisitor
     }
 
     /**
-     * @param \DOMNode $domNode
+     * @param DOMNode $domNode
      * @param Cursor   $cursor
      */
-    public function leaveNode(\DOMNode $domNode, Cursor $cursor)
+    public function leaveNode(DOMNode $domNode, Cursor $cursor)
     {
     }
 }

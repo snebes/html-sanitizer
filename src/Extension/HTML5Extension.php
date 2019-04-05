@@ -15,7 +15,7 @@ use SN\HtmlSanitizer\NodeVisitor\TagNodeVisitor;
 
 // 'allowed_attributes'   => null,
 // 'allowed_classes'      => null,
-// 'forbidden_attributes' => null,
+// 'blocket_attributes' => null,
 // 'forbidden_classes'    => null,
 // 'childless'            => false,
 // 'convert_elements'     => null,
