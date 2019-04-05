@@ -1,0 +1,33 @@
+imports:
+    - php
+filter:
+    excluded_paths:
+        - 'tests/*'
+checks:
+    php: true
+build:
+    nodes:
+        node_71:
+            environment:
+                php:
+                    version: 7.1
+        node_72:
+            environment:
+                php:
+                    version: 7.2
+        node_73:
+            environment:
+                php:
+                    version: 7.3
+    tests:
+        override:
+            -
+                command: vendor/bin/phpunit --coverage-clover=clover.xml
+                coverage:
+                    file: clover.xml
+                    format: php-clover
+tools:
+    php_cs_fixer:
+        config: { level: psr2 }
+    php_hhvm: true
+    php_mess_detector: true
