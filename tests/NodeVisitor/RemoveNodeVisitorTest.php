@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,6 @@ namespace Tests\SN\HtmlSanitizer\NodeVisitor;
 use PHPUnit\Framework\TestCase;
 use SN\HtmlSanitizer\Model\Cursor;
 use SN\HtmlSanitizer\Node\DocumentNode;
-use SN\HtmlSanitizer\Node\TagNode;
 use SN\HtmlSanitizer\NodeVisitor\RemoveNodeVisitor;
 
 class RemoveNodeVisitorTest extends TestCase

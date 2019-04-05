@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -70,6 +70,7 @@ class TagNodeVisitor implements NodeVisitorInterface
     /**
      * @param DOMNode $domNode
      * @param Cursor  $cursor
+     *
      * @return bool
      */
     public function supports(DOMNode $domNode, Cursor $cursor): bool
@@ -80,6 +81,7 @@ class TagNodeVisitor implements NodeVisitorInterface
     /**
      * @param DOMNode $domNode
      * @param Cursor  $cursor
+     *
      * @return TagNodeInterface
      */
     public function createNode(DOMNode $domNode, Cursor $cursor): TagNodeInterface
@@ -149,7 +151,7 @@ class TagNodeVisitor implements NodeVisitorInterface
                 (null === $allowed || \in_array($name, $allowed, true)) &&
                 !\in_array($name, $this->config['blocked_attributes'], true)
             ) {
-                if ($name !== 'class') {
+                if ('class' !== $name) {
                     $node->setAttribute($name, $attribute->value);
                 } else {
                     $value = $this->filterClasses($attribute->value);
@@ -164,6 +166,7 @@ class TagNodeVisitor implements NodeVisitorInterface
 
     /**
      * @param string $value
+     *
      * @return string
      */
     private function filterClasses(string $value): string
@@ -197,6 +200,7 @@ class TagNodeVisitor implements NodeVisitorInterface
 
     /**
      * @param array $options
+     *
      * @return array
      */
     private function configureOptions(array $options): array
@@ -204,11 +208,11 @@ class TagNodeVisitor implements NodeVisitorInterface
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
             'allowed_attributes' => null,
-            'allowed_classes'    => null,
+            'allowed_classes' => null,
             'blocked_attributes' => [],
-            'blocked_classes'    => [],
-            'childless'          => false,
-            'convert_elements'   => [],
+            'blocked_classes' => [],
+            'childless' => false,
+            'convert_elements' => [],
         ]);
         $resolver->setAllowedTypes('allowed_attributes', ['null', 'array', 'string']);
         $resolver->setAllowedTypes('allowed_classes', ['null', 'array', 'string']);

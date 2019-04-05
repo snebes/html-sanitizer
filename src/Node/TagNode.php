@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -62,6 +62,7 @@ class TagNode extends AbstractNode implements TagNodeInterface
 
     /**
      * @param string $name
+     *
      * @return string|null
      */
     public function getAttribute(string $name): ?string
@@ -89,10 +90,10 @@ class TagNode extends AbstractNode implements TagNodeInterface
         $tag = $this->getTagName();
 
         if ($this->isChildless) {
-            return '<' . $tag . $this->renderAttributes() . ' />';
+            return '<'.$tag.$this->renderAttributes().' />';
         }
 
-        return '<' . $tag . $this->renderAttributes() . '>' . $this->renderChildren() . '</' . $tag . '>';
+        return '<'.$tag.$this->renderAttributes().'>'.$this->renderChildren().'</'.$tag.'>';
     }
 
     /**
@@ -124,12 +125,12 @@ class TagNode extends AbstractNode implements TagNodeInterface
                     $value .= ' ';
                 }
 
-                $attr .= '="' . $this->encodeHtmlEntities($value) . '"';
+                $attr .= '="'.$this->encodeHtmlEntities($value).'"';
             }
 
             $rendered[] = $attr;
         }
 
-        return $rendered ? ' ' . \implode(' ', $rendered) : '';
+        return $rendered ? ' '.\implode(' ', $rendered) : '';
     }
 }

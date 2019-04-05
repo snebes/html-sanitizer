@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -27,7 +27,7 @@ interface NodeVisitorInterface
      * Whether this visitor supports the DOM node or not in the current context.
      *
      * @param DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param Cursor  $cursor
      *
      * @return bool
      */
@@ -37,7 +37,7 @@ interface NodeVisitorInterface
      * Enter the DOM node.
      *
      * @param DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param Cursor  $cursor
      */
     public function enterNode(DOMNode $domNode, Cursor $cursor);
 
@@ -45,7 +45,7 @@ interface NodeVisitorInterface
      * Leave the DOM node.
      *
      * @param DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param Cursor  $cursor
      */
     public function leaveNode(DOMNode $domNode, Cursor $cursor);
 }

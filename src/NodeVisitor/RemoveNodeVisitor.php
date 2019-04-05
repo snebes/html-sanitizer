@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,7 +17,7 @@ class RemoveNodeVisitor extends TagNodeVisitor
 {
     /**
      * @param DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param Cursor  $cursor
      */
     public function enterNode(DOMNode $domNode, Cursor $cursor)
     {
@@ -28,7 +28,7 @@ class RemoveNodeVisitor extends TagNodeVisitor
 
     /**
      * @param DOMNode $domNode
-     * @param Cursor   $cursor
+     * @param Cursor  $cursor
      */
     public function leaveNode(DOMNode $domNode, Cursor $cursor)
     {

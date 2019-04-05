@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -75,6 +75,7 @@ class Sanitizer
 
     /**
      * @param string $html
+     *
      * @return string
      */
     public function sanitize(string $html): string
@@ -83,7 +84,7 @@ class Sanitizer
 
         if ($this->logger) {
             $this->logger->debug('Sanitized given input to "{output}".', [
-                'output' => \mb_substr($sanitized, 0, 50) . (\mb_strlen($sanitized) > 50 ? '...' : ''),
+                'output' => \mb_substr($sanitized, 0, 50).(\mb_strlen($sanitized) > 50 ? '...' : ''),
             ]);
         }
 
@@ -92,6 +93,7 @@ class Sanitizer
 
     /**
      * @param string $html
+     *
      * @return string
      */
     private function doSanitize(string $html): string
@@ -123,6 +125,7 @@ class Sanitizer
 
     /**
      * @param string $html
+     *
      * @return bool
      */
     private function isValidUtf8(string $html): bool
