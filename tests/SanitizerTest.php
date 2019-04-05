@@ -575,6 +575,10 @@ class SanitizerTest extends TestCase
                 '<template/>',
                 '<template></template>',
             ],
+            [
+                '<p>Text node</p>',
+                '<p>Text node</p>',
+            ],
         ];
     }
 }
