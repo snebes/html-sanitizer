@@ -1,6 +1,6 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
@@ -13,15 +13,8 @@ namespace SN\HtmlSanitizer\Extension;
 use SN\HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
 use SN\HtmlSanitizer\NodeVisitor\TagNodeVisitor;
 
-// 'allowed_attributes'   => null,
-// 'allowed_classes'      => null,
-// 'forbidden_attributes' => null,
-// 'forbidden_classes'    => null,
-// 'childless'            => false,
-// 'convert_elements'     => null,
-
 /**
- * HTML5 Extension
+ * HTML5 Extension.
  */
 class HTML5Extension implements ExtensionInterface
 {
@@ -35,6 +28,7 @@ class HTML5Extension implements ExtensionInterface
 
     /**
      * @param array $config
+     *
      * @return NodeVisitorInterface[]
      */
     public function createNodeVisitors(array $config = []): array
@@ -44,10 +38,10 @@ class HTML5Extension implements ExtensionInterface
             'html'       => new TagNodeVisitor('html', $config['tags']['html'] ?? []),
 
             // Document metadata
-            'base'       => new TagNodeVisitor('base', $config['tags']['base'] ?? []),
+            'base'       => new TagNodeVisitor('base', $config['tags']['base'] ?? ['childless' => true]),
             'head'       => new TagNodeVisitor('head', $config['tags']['head'] ?? []),
-            'link'       => new TagNodeVisitor('link', $config['tags']['link'] ?? []),
-            'meta'       => new TagNodeVisitor('meta', $config['tags']['meta'] ?? []),
+            'link'       => new TagNodeVisitor('link', $config['tags']['link'] ?? ['childless' => true]),
+            'meta'       => new TagNodeVisitor('meta', $config['tags']['meta'] ?? ['childless' => true]),
             'style'      => new TagNodeVisitor('style', $config['tags']['style'] ?? []),
             'title'      => new TagNodeVisitor('title', $config['tags']['title'] ?? []),
 
@@ -119,14 +113,14 @@ class HTML5Extension implements ExtensionInterface
             'tt'         => new TagNodeVisitor('tt', $config['tags']['tt'] ?? []),
             'u'          => new TagNodeVisitor('u', $config['tags']['u'] ?? []),
             'var'        => new TagNodeVisitor('var', $config['tags']['var'] ?? []),
-            'wbr'        => new TagNodeVisitor('wbr', $config['tags']['wbr'] ?? []),
+            'wbr'        => new TagNodeVisitor('wbr', $config['tags']['wbr'] ?? ['childless' => true]),
 
             // Image and multimedia
-            'area'       => new TagNodeVisitor('area', $config['tags']['area'] ?? []),
+            'area'       => new TagNodeVisitor('area', $config['tags']['area'] ?? ['childless' => true]),
             'audio'      => new TagNodeVisitor('audio', $config['tags']['audio'] ?? []),
             'img'        => new TagNodeVisitor('img', $config['tags']['img'] ?? ['childless' => true]),
             'map'        => new TagNodeVisitor('map', $config['tags']['map'] ?? []),
-            'track'      => new TagNodeVisitor('track', $config['tags']['track'] ?? []),
+            'track'      => new TagNodeVisitor('track', $config['tags']['track'] ?? ['childless' => true]),
             'video'      => new TagNodeVisitor('video', $config['tags']['video'] ?? []),
 
             // Embedded content
@@ -135,7 +129,7 @@ class HTML5Extension implements ExtensionInterface
             'iframe'     => new TagNodeVisitor('iframe', $config['tags']['iframe'] ?? []),
             'noembed'    => new TagNodeVisitor('noembed', $config['tags']['noembed'] ?? []),
             'object'     => new TagNodeVisitor('object', $config['tags']['object'] ?? []),
-            'param'      => new TagNodeVisitor('param', $config['tags']['param'] ?? []),
+            'param'      => new TagNodeVisitor('param', $config['tags']['param'] ?? ['childless' => true]),
             'picture'    => new TagNodeVisitor('picture', $config['tags']['picture'] ?? []),
             'source'     => new TagNodeVisitor('source', $config['tags']['source'] ?? []),
 
@@ -150,7 +144,7 @@ class HTML5Extension implements ExtensionInterface
 
             // Table content
             'caption'    => new TagNodeVisitor('caption', $config['tags']['caption'] ?? []),
-            'col'        => new TagNodeVisitor('col', $config['tags']['col'] ?? []),
+            'col'        => new TagNodeVisitor('col', $config['tags']['col'] ?? ['childless' => true]),
             'colgroup'   => new TagNodeVisitor('colgroup', $config['tags']['colgroup'] ?? []),
             'table'      => new TagNodeVisitor('table', $config['tags']['table'] ?? []),
             'tbody'      => new TagNodeVisitor('tbody', $config['tags']['tbody'] ?? []),
@@ -165,7 +159,7 @@ class HTML5Extension implements ExtensionInterface
             'datalist'   => new TagNodeVisitor('datalist', $config['tags']['datalist'] ?? []),
             'fieldset'   => new TagNodeVisitor('fieldset', $config['tags']['fieldset'] ?? []),
             'form'       => new TagNodeVisitor('form', $config['tags']['form'] ?? []),
-            'input'      => new TagNodeVisitor('input', $config['tags']['input'] ?? []),
+            'input'      => new TagNodeVisitor('input', $config['tags']['input'] ?? ['childless' => true]),
             'label'      => new TagNodeVisitor('label', $config['tags']['label'] ?? []),
             'legend'     => new TagNodeVisitor('legend', $config['tags']['legend'] ?? []),
             'meter'      => new TagNodeVisitor('meter', $config['tags']['meter'] ?? []),

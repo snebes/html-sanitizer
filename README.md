@@ -1,5 +1,11 @@
 # html-sanitizer
 
+[![PHP Version](https://img.shields.io/packagist/php-v/snebes/html-sanitizer.svg?maxAge=3600)](https://packagist.org/packages/snebes/html-sanitizer)
+[![Latest Version](https://img.shields.io/packagist/v/snebes/html-sanitizer.svg?maxAge=3600)](https://packagist.org/packages/snebes/html-sanitizer)
+[![Build Status](https://img.shields.io/scrutinizer/build/g/snebes/html-sanitizer.svg?maxAge=3600)](https://scrutinizer-ci.com/g/snebes/html-sanitizer)
+[![Code Quality](https://img.shields.io/scrutinizer/g/snebes/html-sanitizer.svg?maxAge=3600)](https://scrutinizer-ci.com/g/snebes/html-sanitizer)
+[![Test Coverage](https://img.shields.io/scrutinizer/coverage/g/snebes/html-sanitizer.svg?maxAge=3600)](https://scrutinizer-ci.com/g/snebes/html-sanitizer)
+
 html-sanitizer is a library aiming at handling, cleaning and sanitizing HTML sent by external users
 (who you cannot trust), allowing you to store it and display it safely. It has sensible defaults
 to provide a great developer experience while still being entirely configurable.

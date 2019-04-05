@@ -1,10 +1,12 @@
 <?php
 /**
- * (c) Steve Nebes <snebes@gmail.com>
+ * (c) Steve Nebes <snebes@gmail.com>.
  *
  *  For the full copyright and license information, please view the LICENSE
  *  file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace SN\HtmlSanitizer\Sanitizer;
 
@@ -13,17 +15,10 @@ namespace SN\HtmlSanitizer\Sanitizer;
  */
 trait StringSanitizerTrait
 {
-    /** @var array<string, string> */
+    /**
+     * @var array<string, string>
+     */
     private static $replacements = [
-        // "&#34;" is shorter than "&quot;"
-        '&quot;' => '&#34;',
-
-        // Fix several potential issues in how browsers intepret attributes values
-        '+' => '&#43;',
-        '=' => '&#61;',
-        '@' => '&#64;',
-        '`' => '&#96;',
-
         // Some DB engines will transform UTF8 full-width characters their classical version
         // if the data is saved in a non-UTF8 field
         '＜' => '&#xFF1C;',
@@ -36,6 +31,7 @@ trait StringSanitizerTrait
 
     /**
      * @param string $string
+     *
      * @return string
      */
     public function encodeHtmlEntities(string $string): string
