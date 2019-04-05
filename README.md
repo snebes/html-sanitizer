@@ -38,5 +38,4 @@ Many thanks to:
   [OWASP/java-html-sanitizer](https://github.com/OWASP/java-html-sanitizer)) ;
 - [Masterminds/html5-php](https://github.com/Masterminds/html5-php) which is a great HTML5 parser, used by default
   in this library ;
-- [The PHP League URI parser](http://uri.thephpleague.com/) which allows this library to filter hosts safely ;
 - [tgalopin/html-sanitizer](https://github.com/tgalopin/html-sanitizer): from which this library is a hard-fork from.
