@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace SN\HtmlSanitizer;
 
+use Psr\Log\NullLogger;
 use SN\HtmlSanitizer\Extension\HTML5Extension;
 use SN\HtmlSanitizer\Parser\MastermindsParser;
 use SN\HtmlSanitizer\Parser\ParserInterface;
@@ -62,7 +63,6 @@ class Sanitizer
      * Quickly create an already configured sanitizer using the default builder.
      *
      * @param array $config
-     *
      * @return Sanitizer
      */
     public static function create(array $config): Sanitizer
@@ -75,7 +75,6 @@ class Sanitizer
 
     /**
      * @param string $html
-     *
      * @return string
      */
     public function sanitize(string $html): string
@@ -93,7 +92,6 @@ class Sanitizer
 
     /**
      * @param string $html
-     *
      * @return string
      */
     private function doSanitize(string $html): string
@@ -125,7 +123,6 @@ class Sanitizer
 
     /**
      * @param string $html
-     *
      * @return bool
      */
     private function isValidUtf8(string $html): bool

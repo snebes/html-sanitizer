@@ -86,9 +86,7 @@ class TagNodeVisitor implements NodeVisitorInterface
      */
     public function createNode(DOMNode $domNode, Cursor $cursor): TagNodeInterface
     {
-        $childless = $this->config['childless'] ?? false;
-
-        $node = new TagNode($cursor->node, $this->qName, [], $childless);
+        $node = new TagNode($cursor->node, $this->qName, [], $this->config['childless']);
         $this->setAttributes($domNode, $node);
 
         return $node;
@@ -103,9 +101,7 @@ class TagNodeVisitor implements NodeVisitorInterface
         $node = $this->createNode($domNode, $cursor);
         $cursor->node->addChild($node);
 
-        $childless = $this->config['childless'] ?? false;
-
-        if (true !== $childless) {
+        if (true !== $this->config['childless']) {
             $cursor->node = $node;
         }
     }
@@ -116,9 +112,7 @@ class TagNodeVisitor implements NodeVisitorInterface
      */
     public function leaveNode(DOMNode $domNode, Cursor $cursor)
     {
-        $childless = $this->config['childless'] ?? false;
-
-        if (true !== $childless) {
+        if (true !== $this->config['childless']) {
             $cursor->node = $cursor->node->getParent();
         }
     }
@@ -208,11 +202,11 @@ class TagNodeVisitor implements NodeVisitorInterface
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
             'allowed_attributes' => null,
-            'allowed_classes' => null,
+            'allowed_classes'    => null,
             'blocked_attributes' => [],
-            'blocked_classes' => [],
-            'childless' => false,
-            'convert_elements' => [],
+            'blocked_classes'    => [],
+            'childless'          => false,
+            'convert_elements'   => [],
         ]);
         $resolver->setAllowedTypes('allowed_attributes', ['null', 'array', 'string']);
         $resolver->setAllowedTypes('allowed_classes', ['null', 'array', 'string']);

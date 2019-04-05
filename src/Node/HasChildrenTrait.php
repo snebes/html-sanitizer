@@ -20,11 +20,17 @@ trait HasChildrenTrait
      */
     private $children = [];
 
-    public function addChild(NodeInterface $child)
+    /**
+     * @param NodeInterface $child
+     */
+    public function addChild(NodeInterface $child): void
     {
         $this->children[] = $child;
     }
 
+    /**
+     * @return string
+     */
     protected function renderChildren(): string
     {
         $rendered = '';

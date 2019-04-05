@@ -71,7 +71,7 @@ class SanitizerBuilder
 
         foreach ($config['extensions'] ?? [] as $extensionName) {
             if (!isset($this->extensions[$extensionName])) {
-                throw new \InvalidArgumentException(sprintf(
+                throw new \InvalidArgumentException(\sprintf(
                     'You have requested a non-existent sanitizer extension "%s" (available extensions: %s)',
                     $extensionName,
                     \implode(', ', \array_keys($this->extensions))

@@ -102,6 +102,7 @@ class TagNode extends AbstractNode implements TagNodeInterface
     private function renderAttributes(): string
     {
         $rendered = [];
+
         foreach ($this->attributes as $name => $value) {
             if (null === $value) {
                 // Tag should be removed as a sanitizer found suspect data inside

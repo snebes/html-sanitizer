@@ -15,7 +15,10 @@ namespace SN\HtmlSanitizer\Node;
  */
 trait IsChildlessTrait
 {
-    public function addChild(NodeInterface $child)
+    /**
+     * @param NodeInterface $child
+     */
+    public function addChild(NodeInterface $child): void
     {
     }
 }
