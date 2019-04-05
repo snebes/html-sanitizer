@@ -16,15 +16,6 @@ build:
                 coverage:
                     file: clover.xml
                     format: php-clover
-    nodes:
-        node_72:
-            environment:
-                php:
-                    version: 7.2
-        node_73:
-            environment:
-                php:
-                    version: 7.3
 tools:
     php_cs_fixer:
         config: { level: psr2 }
