@@ -3,7 +3,7 @@
 Here is the configuration default values with annotations describing the specific configuration keys:
 
 ```php
-$sanitizer = HtmlSanitizer\Sanitizer::create([
+$sanitizer = SN\HtmlSanitizer\Sanitizer::create([
 
     /*
      * Maximum length in number of characters this sanitizer will accept as inputs.

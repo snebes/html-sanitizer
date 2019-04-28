@@ -22,6 +22,7 @@
     "require": {
         "php": ">=7.1",
         "ext-dom": "*",
+        "ext-mbstring": "*",
         "masterminds/html5": "^2.0",
         "psr/log": "^1.0",
         "symfony/options-resolver": "^3.0|^4.0"
