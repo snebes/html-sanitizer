@@ -115,6 +115,30 @@ class TagNodeVisitor implements NodeVisitorInterface
     }
 
     /**
+     * Read the value of a DOMNode attribute.
+     *
+     * @param DOMNode $domNode
+     * @param string  $name
+     *
+     * @return null|string
+     */
+    protected function getAttribute(DOMNode $domNode, string $name): ?string
+    {
+        if (!\count($domNode->attributes)) {
+            return null;
+        }
+
+        /** @var \DOMAttr $attribute */
+        foreach ($domNode->attributes as $attribute) {
+            if ($attribute->name === $name) {
+                return $attribute->value;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Set attributes from a DOM node to a sanitized node.
      *
      * @param DOMNode          $domNode

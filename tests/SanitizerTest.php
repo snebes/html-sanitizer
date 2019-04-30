@@ -581,4 +581,20 @@ class SanitizerTest extends TestCase
             ],
         ];
     }
+
+    public function testWordJunk(): void
+    {
+        $junk = <<<XML
+<div><p>test</p></div>
+<!-- [if gte mso 9]><xml>
+     <o:OfficeDocumentSettings>
+      <o:RelyOnVML/>
+      <o:AllowPNG/>
+     </o:OfficeDocumentSettings>
+    </xml><![endif]-->
+XML;
+
+        $sanitizer = Sanitizer::create(['extensions' => ['html5']]);
+        $this->assertSame("<div><p>test</p></div>\n", $sanitizer->sanitize($junk));
+    }
 }
