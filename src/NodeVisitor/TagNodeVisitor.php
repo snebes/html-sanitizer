@@ -17,9 +17,6 @@ use SN\HtmlSanitizer\Node\TagNodeInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-/**
- * @final
- */
 class TagNodeVisitor implements NodeVisitorInterface
 {
     /**
