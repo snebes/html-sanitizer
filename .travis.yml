@@ -24,6 +24,7 @@ matrix:
         - php: 7.1
         - php: 7.2
         - php: 7.3
+        - php: 7.4snapshot
           env: COVERAGE=true PHPUNIT_FLAGS="-v --coverage-text"
 
         # Test LTS versions. This makes sure we do not use Symfony packages with version greater
