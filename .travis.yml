@@ -34,13 +34,12 @@ matrix:
         # Latest commit to master
         - php: 7.3
           env: STABILITY="dev"
+        - php: 7.4snapshot
+          env: STABILITY="dev"
 
     allow_failures:
         # Dev-master is allowed to fail.
-        - php: 7.3
-          env: STABILITY="dev"
-        - php: 7.4snapshot
-          env: STABILITY="dev"
+        - env: STABILITY="dev"
 
 before_install:
     - if [[ $COVERAGE != true ]]; then phpenv config-rm xdebug.ini || true; fi
