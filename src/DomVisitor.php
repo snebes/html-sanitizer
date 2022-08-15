@@ -15,6 +15,9 @@ use SN\HtmlSanitizer\Node\DocumentNode;
 use SN\HtmlSanitizer\Node\TextNode;
 use SN\HtmlSanitizer\NodeVisitor\NodeVisitorInterface;
 
+use DOMNode;
+use DOMText;
+
 /**
  * The DomVisitor iterate over the parsed DOM tree and visit nodes using NodeVisitorInterface objects.
  * For performance reasons, these objects are split in 2 groups: generic ones and node-specific ones.
@@ -41,11 +44,11 @@ class DomVisitor
     }
 
     /**
-     * @param \DOMNode $node
+     * @param DOMNode $node
      *
      * @return DocumentNode
      */
-    public function visit(\DOMNode $node): DocumentNode
+    public function visit(DOMNode $node): DocumentNode
     {
         $cursor = new Cursor();
         $cursor->node = new DocumentNode();
@@ -56,10 +59,10 @@ class DomVisitor
     }
 
     /**
-     * @param \DOMNode $node
+     * @param DOMNode $node
      * @param Cursor   $cursor
      */
-    private function visitNode(\DOMNode $node, Cursor $cursor)
+    private function visitNode(DOMNode $node, Cursor $cursor)
     {
         /** @var NodeVisitorInterface[] $supportedVisitors */
         $supportedVisitors = $this->nodeVisitors[$node->nodeName] ?? [];
@@ -70,12 +73,12 @@ class DomVisitor
             }
         }
 
-        /** @var \DOMNode $child */
+        /** @var DOMNode $child */
         foreach ($node->childNodes ?? [] as $child) {
             if ('#text' === $child->nodeName) {
                 // Add text in the safe tree without a visitor for performance
                 $cursor->node->addChild(new TextNode($cursor->node, $child->nodeValue));
-            } elseif (!$child instanceof \DOMText) {
+            } elseif (!$child instanceof DOMText) {
                 // Ignore comments for security reasons (interpreted differently by browsers)
                 $this->visitNode($child, $cursor);
             }
