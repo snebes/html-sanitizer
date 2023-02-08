@@ -24,7 +24,7 @@
         "ext-dom": "*",
         "ext-mbstring": "*",
         "masterminds/html5": "^2.0",
-        "psr/log": "^1.0",
+        "psr/log": "^1.0|^2.0",
         "symfony/options-resolver": "^3.0|^4.0|^5.0|^6.0"
     },
     "require-dev": {
