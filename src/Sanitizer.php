@@ -51,8 +51,12 @@ class Sanitizer
      * @param ParserInterface|null $parser
      * @param LoggerInterface|null $logger
      */
-    public function __construct(DomVisitor $domVisitor, int $maxInputLength, ParserInterface $parser = null, LoggerInterface $logger = null)
-    {
+    public function __construct(
+        DomVisitor $domVisitor,
+        int $maxInputLength,
+        ?ParserInterface $parser = null,
+        ?LoggerInterface $logger = null
+    ) {
         $this->domVisitor = $domVisitor;
         $this->maxInputLength = $maxInputLength;
         $this->parser = $parser ?: new MastermindsParser();
